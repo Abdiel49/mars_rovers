@@ -1,6 +1,7 @@
-# Interview Coding Problem for BolivianDevs
+# MARS ROVERS
 
 _Please see the [disclaimer](#disclaimer) section_
+
 ## rules:
 - The first line of input is the upper-right coordinates of the plateau, the lower-left coordinates are assumed to be 0,0.
 - To control a rover, NASA sends a simple string of letters. The possible letters are 'L', 'R' and 'M'. 'L' and 'R' makes the rover spin 90 degrees left or right respectively, without moving from its current spot. 'M' means move forward one grid point and maintain the same heading.
