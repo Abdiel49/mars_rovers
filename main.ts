@@ -77,23 +77,23 @@ function main() {
   let lines: string[] = [];
 
   // mock test
-  const mockInput: string[] = [
-    "5 5",
-    "1 2 N",
-    "LMLMLMLMM",
-    "3 3 N",
-    "MMRMMRMRRM",
-  ]
-  run(mockInput);
+  // const mockInput: string[] = [
+  //   "5 5",
+  //   "1 2 N",
+  //   "LMLMLMLMM",
+  //   "3 3 N",
+  //   "MMRMMRMRRM",
+  // ]
+  // run(mockInput);
   
   // commnet this section to test mock data
-  // rl.on('line', (input) => {
-  //   lines.push(input);
-  // });
+  rl.on('line', (input) => {
+    lines.push(input);
+  });
 
-  // rl.on('close', () => {
-  //   run(lines)
-  // });
+  rl.on('close', () => {
+    run(lines)
+  });
 }
 
 main();
