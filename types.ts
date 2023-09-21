@@ -20,7 +20,9 @@ export interface RoverLaunch {
 }
 
 export type RawDataInputToData = {
-  plateuX: number;
-  plateuY: number;
+  plateauX: number;
+  plateauY: number;
   rovers: RoverLaunch[]
-} 
+}
+
+export type HandleDirection = {[key: string]: (move: Movements) => Direction};

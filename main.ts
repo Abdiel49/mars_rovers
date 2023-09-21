@@ -2,55 +2,21 @@ import readline from 'readline';
 
 import { Plateau } from "./Plateau";
 import { Rovers } from "./Rovers";
-import { Direction, Movements, RawDataInputToData, RoverLaunch } from "./types";
+import { RoverLaunch } from "./types";
+import { parseUserInputs } from './tools';
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-const parseUserInputs = (input: string[]): RawDataInputToData => {
-  const rawData: RawDataInputToData = {
-    plateuX: 0,
-    plateuY: 0,
-    rovers: [],
-  };
-  // extract sixe of plateau
-  const plateuSize = input[0].split(' ')
-  rawData.plateuX = +plateuSize[0];
-  rawData.plateuY = +plateuSize[1];
-
-  let data = input.splice(1, input.length);
-
-  for (let i = 0; i < data.length; i += 2) {
-    const rawCoor = data[i].split(' ');
-    const movements = data[i + 1].split('');
-
-    if (rawCoor.length === 3) {
-      rawData.rovers.push({
-        initilCoordinates: {
-          x: +rawCoor[0],
-          y: +rawCoor[1],
-        },
-        initialDir: rawCoor[2] as Direction,
-        movements: movements  as Movements[],
-      })
-    } else {
-      console.error('Error on Coordinates input, the input is:', rawCoor);
-    }
-  }
-
-  return rawData;
-}
-
 const run = (lines: string[]) => {
-  const data = parseUserInputs(lines)
+  const {plateauX, plateauY, rovers} = parseUserInputs(lines)
 
-  const plateau = new Plateau(data.plateuX, data.plateuY);
+  const plateau = new Plateau(plateauX, plateauY);
 
   const finalRoversStatus: string[] = [];
 
-  const rovers = data.rovers;
   for (const rLaunch of rovers) {
     const finihRover = moveRover(rLaunch, plateau);
     finalRoversStatus.push(finihRover);
@@ -69,14 +35,17 @@ const moveRover = (rLaunch: RoverLaunch, plateau: Plateau): string => {
   }
   const {coordinates, direction} = rover.getStatus();
 
-  const error = rover.getMovementErrors();
+  // // use this to see error on movementes
+  // const errors = rover.getMovementErrors();
+  // console.log('\n\nrover erros', errors);
+
   return `${coordinates.x} ${coordinates.y} ${direction}`
 };
 
 function main() {
   let lines: string[] = [];
 
-  // mock test
+  // //  mock test
   // const mockInput: string[] = [
   //   "5 5",
   //   "1 2 N",
@@ -86,7 +55,7 @@ function main() {
   // ]
   // run(mockInput);
   
-  // commnet this section to test mock data
+  //  commnet this section to test mock data
   rl.on('line', (input) => {
     lines.push(input);
   });
@@ -97,3 +66,6 @@ function main() {
 }
 
 main();
+
+// // uncommnet this if use a test development mode
+// rl.close()

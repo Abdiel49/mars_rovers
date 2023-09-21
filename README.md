@@ -68,6 +68,9 @@ function main() {
 }
 
 main();
+
+// // uncommnet this if use a test development mode
+// rl.close()
 ```
 
 Change for this:
@@ -101,6 +104,10 @@ function main() {
 }
 
 main();
+
+// uncommnet this if use a test development mode
+rl.close()
+
 ```
 
 Then run

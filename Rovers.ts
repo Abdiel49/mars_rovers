@@ -1,4 +1,5 @@
 import { Plateau } from "./Plateau";
+import { handleDirections } from "./tools";
 import { Coordinates, Direction, ErrorMovement, Movements } from "./types";
 
 export class Rovers {
@@ -21,38 +22,13 @@ export class Rovers {
    * @param {Movements} move - The parameter "move" is of type "Movements".
    */
   private changeDirection (move: Movements) {
-    switch (this.direction) {
-      case 'N':
-        if (move === 'L') {
-          this.direction = 'W';
-        } else if(move === 'R'){
-          this.direction = 'E';
-        }
-        break;
-      case 'E':
-        if (move === 'L') {
-          this.direction = 'N';
-        } else if(move === 'R'){
-          this.direction = 'S';
-        }
-        break;
-      case 'W':
-        if (move === 'L') {
-          this.direction = 'S';
-        } else if(move === 'R'){
-          this.direction = 'N';
-        }
-        break;
-      case 'S':
-        if (move === 'L') {
-          this.direction = 'E';
-        } else if(move === 'R'){
-          this.direction = 'W';
-        }
-        break;
-    
-      default:
-        this.direction = this.direction;
+    const changeDirectionFn = handleDirections[this.direction]
+    if (!!changeDirectionFn) {
+      const newDir = changeDirectionFn(move);
+      this.direction = newDir;
+    }
+    else {
+      console.error('No change direction function finded');
     }
   }
 
@@ -62,6 +38,7 @@ export class Rovers {
    */
   movement() {
     const movement = this.plateau.isValidMove(this.direction, this.coordinates, this.steps);
+  
     if(movement) {
       this.coordinates = movement;
     } else {
