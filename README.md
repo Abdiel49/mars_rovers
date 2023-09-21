@@ -129,15 +129,20 @@ This is the input data as an example and the expected result:
 
 ### INPUT AND OUTPUT
 #### Test Input:
+```bash
 5 5
 1 2 N
 LMLMLMLMM
 3 3 E
 MMRMMRMRRM
+```
 
 #### Expected Output:
+```bash
 1 3 N
 5 1 E 
-\==========
+==========
+```
+
 
 ![disclaimer image ](https://raw.githubusercontent.com/Abdiel49/mars_rovers/master/assets/rovers-warn.png)
